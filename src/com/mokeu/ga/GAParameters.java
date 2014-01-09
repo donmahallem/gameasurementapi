@@ -18,5 +18,8 @@ public final class GAParameters{
 			DOCUMENT_TITLE="dt",
 			HIT_TYPE="t",
 			CONTENT_DESCRIPTION="cd",
-			VERSION = "v";
+			VERSION = "v",
+			JAVA_ENABLED="je",
+			USER_LANGUAGE="ul",
+			SCREEN_RESOLUTION="sr";
 }

@@ -7,10 +7,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class GAnalytics{
+	public static final String ENDPOINT_PATH = "/collect",
+			ENDPOINT_HOST="www.google-analytics.com",
+			ENDPOINT_SCHEME="http";
 	private static String mDefaultTrackerId="";
 	private static String mClientId=UUID.randomUUID().toString();
 	private static Map<String,GATracker> mRequests=new HashMap<String,GATracker>();
 	private static ExecutorService mService = Executors.newFixedThreadPool(1);
+	private static String mUserLanguage=null,mJavaEnabled="1",mScreenResolution=null;
 	private GAnalytics(){
 		
 	}
@@ -46,5 +50,17 @@ public class GAnalytics{
 	}
 	public static void queue(GARequest request) {
 		mService.execute(request);
+	}
+	public static String getScreenResolution() {
+		// TODO Auto-generated method stub
+		return mScreenResolution;
+	}
+	public static String getJavaEnabled() {
+		// TODO Auto-generated method stub
+		return mJavaEnabled;
+	}
+	public static String getUserLanguage() {
+		// TODO Auto-generated method stub
+		return mUserLanguage;
 	}
 }

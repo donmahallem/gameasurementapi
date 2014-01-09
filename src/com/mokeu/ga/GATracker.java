@@ -3,7 +3,10 @@ package com.mokeu.ga;
 public class GATracker{
 	private String mTrackerId;
 	public GATracker(String trackerId){
-		mTrackerId=trackerId;
+		mTrackerId=trackerId;  
+		
+		
+		
 	}
 	public String getTrackerId(){
 		return mTrackerId;
