@@ -57,8 +57,8 @@ public class GAQueryBuilder{
 		if(tracker.getAppTracking()){
 			req.addParameter(GAParameters.APP_NAME,tracker.getSettings().appName);
 		}
-		if(tracker.getSettings().contentDescription!=null){
-			req.addParameter(GAParameters.CONTENT_DESCRIPTION, tracker.getSettings().contentDescription);
+		if(tracker.getEventPath()!=""){
+			req.addParameter(GAParameters.DOCUMENT_PATH, tracker.getEventPath());
 		}
 		req.addParameter(GAParameters.HIT_TYPE, "event");
 		req.addParameter(GAParameters.EVENT_CATEGORY, category);

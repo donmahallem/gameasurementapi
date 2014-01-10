@@ -1,19 +1,17 @@
 package com.mokeu.ga;
 
-import java.util.UUID;
-
 public class GATracker{
-	private String mTrackerId;
+	private String mEventPath="";
 	private boolean mAppTracking;
 	private static Settings mSettings=new Settings();
 	static public class Settings{
-		public String userLanguage;
-		public String userAgent="github.gameasurementapi";
-		public String clientId=UUID.randomUUID().toString();
-		public String userEnabled=null;
-		public boolean javaEnabled=true;
-		public String screenResolution=null;
-		public boolean anonymizeIp=GAnalytics.getAnonymizeIp();
+		public String userLanguage=GAnalytics.getSettings().userLanguage;
+		public String userAgent=GAnalytics.getSettings().userAgent;
+		public String clientId=GAnalytics.getSettings().clientId;
+		public String trackerId="";
+		public boolean javaEnabled=GAnalytics.getSettings().javaEnabled;
+		public String screenResolution=GAnalytics.getSettings().screenResolution;
+		public boolean anonymizeIp=GAnalytics.getSettings().anonymizeIp;
 		public String appName="AppName";
 		public String appVersion="AppVersion";
 		public String contentDescription="";
@@ -25,31 +23,38 @@ public class GATracker{
 		this(trackerId,false);
 	}
 	public GATracker(String trackerId,boolean appTracking){
-		mTrackerId=trackerId;  
 		mAppTracking=appTracking;
 		mSettings=new Settings();
-		mSettings.userAgent=GAnalytics.BROWSER+"/"+GAnalytics.VERSION;
+		mSettings.trackerId=trackerId;
 		
+	}
+	public String getEventPath() {
+		// TODO Auto-generated method stub
+		return mEventPath;
 	}
 	public boolean getAppTracking(){
 		return mAppTracking;
 	}
+	/**
+	 * Equal to {@ling #Settings.trackerId}
+	 * @return
+	 */
 	public String getTrackerId(){
-		return mTrackerId;
+		return mSettings.trackerId;
 	}
 	public Settings getSettings(){
 		return mSettings;
 	}
 	public void trackPageView(String locationUrl,String title){
-		mSettings.contentDescription=locationUrl;
+		mEventPath=locationUrl;
 		GAnalytics.queue(GAQueryBuilder.trackPageView(this,locationUrl,title));
 	}
 	public void trackPageView(String hostName,String filePath,String title){
-		mSettings.contentDescription=hostName+filePath;
+		mEventPath=filePath;
 		GAnalytics.queue(GAQueryBuilder.trackPageView(this,hostName, filePath, title));
 	}
 	public void trackAppView(String title){
-		mSettings.contentDescription=title;
+		mEventPath=title;
 		GAnalytics.queue(GAQueryBuilder.trackAppView(this, title));
 	}
 	public void trackEvent(String category,String action,String label,int value){

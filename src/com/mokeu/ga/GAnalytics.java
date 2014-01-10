@@ -6,6 +6,7 @@ import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+
 public class GAnalytics{
 	public static final String BROWSER = "github.gameasurementapi",VERSION="1";
 	private static String mDefaultTrackerId="";
@@ -14,6 +15,29 @@ public class GAnalytics{
 	private static ExecutorService mService = Executors.newFixedThreadPool(1);
 	private static GAMethod mMethod=GAMethod.GET_SSL;
 	private static boolean mAnonymizeIp=false;
+	private static Settings mSettings=new Settings();
+	/**
+	 * Base Information for all new GATracker Settings will be derived from
+	 *
+	 */
+	static public class Settings{
+		/**
+		 * the user language
+		 */
+		public String userLanguage=null;
+		/**
+		 * User Agent for requests
+		 */
+		public String userAgent=GAnalytics.BROWSER+"/"+GAnalytics.VERSION;
+		public String userEnabled=null;
+		/**
+		 * User ID specifying visitor
+		 */
+		public String clientId=UUID.randomUUID().toString();
+		public boolean javaEnabled=true;
+		public String screenResolution=null;
+		public boolean anonymizeIp=false;
+	}
 	private GAnalytics(){
 	}
 	public static void setDefaultTrackerId(String defaultID){
@@ -57,5 +81,9 @@ public class GAnalytics{
 	}
 	public static void setAnonymizeIp(boolean anonymize){
 		mAnonymizeIp=anonymize;
+	}
+	public static Settings getSettings() {
+		// TODO Auto-generated method stub
+		return mSettings;
 	}
 }
