@@ -7,16 +7,30 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class GAnalytics{
-	public static final String ENDPOINT_PATH = "/collect",
-			ENDPOINT_HOST="www.google-analytics.com",
-			ENDPOINT_SCHEME="http";
 	private static String mDefaultTrackerId="";
 	private static String mClientId=UUID.randomUUID().toString();
 	private static Map<String,GATracker> mRequests=new HashMap<String,GATracker>();
 	private static ExecutorService mService = Executors.newFixedThreadPool(1);
-	private static String mUserLanguage=null,mJavaEnabled="1",mScreenResolution=null;
-	private GAnalytics(){
+	private static GAMethod mMethod=GAMethod.GET_SSL;
+	private static boolean mAnonymizeIp=false;
+	private static Settings mSettings=new Settings();
+	static public class Settings{
+		public String userLanguage;
+		public String userAgent="github/gameasurementapi";
+		public String clientId=UUID.randomUUID().toString();
+		public String userEnabled=null;
+		public boolean javaEnabled=true;
+		public String screenResolution=null;
+		public boolean anonymizeIp=false;
 		
+		public Settings(){
+			
+		}
+	}
+	private GAnalytics(){
+	}
+	public static Settings getSettings(){
+		return mSettings;
 	}
 	public static void setDefaultTrackerId(String defaultID){
 		mDefaultTrackerId=defaultID;
@@ -51,16 +65,13 @@ public class GAnalytics{
 	public static void queue(GARequest request) {
 		mService.execute(request);
 	}
-	public static String getScreenResolution() {
-		// TODO Auto-generated method stub
-		return mScreenResolution;
+	public static GAMethod getMethod(){
+		return mMethod;
 	}
-	public static String getJavaEnabled() {
-		// TODO Auto-generated method stub
-		return mJavaEnabled;
+	public static boolean getAnonymizeIp(){
+		return mAnonymizeIp;
 	}
-	public static String getUserLanguage() {
-		// TODO Auto-generated method stub
-		return mUserLanguage;
+	public static void setAnonymizeIp(boolean anonymize){
+		mAnonymizeIp=anonymize;
 	}
 }

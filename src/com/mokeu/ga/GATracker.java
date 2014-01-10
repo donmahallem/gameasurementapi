@@ -17,4 +17,7 @@ public class GATracker{
 	public void trackAppView(String title){
 		GAnalytics.queue(GAQueryBuilder.trackAppView(this, title));
 	}
+	public void trackEvent(String category,String action,String label,int value){
+		GAnalytics.queue(GAQueryBuilder.trackEvent(this,category,action,label,value));
+	}
 }

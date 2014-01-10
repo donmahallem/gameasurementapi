@@ -21,5 +21,11 @@ public final class GAParameters{
 			VERSION = "v",
 			JAVA_ENABLED="je",
 			USER_LANGUAGE="ul",
-			SCREEN_RESOLUTION="sr";
+			SCREEN_RESOLUTION="sr",
+			APP_VERSION = "av",
+			APP_NAME="an",
+			EVENT_CATEGORY = "ec",
+			EVENT_ACTION="ea",
+			EVENT_LABEL="el",
+			EVENT_VALUE="ev";
 }

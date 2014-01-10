@@ -13,6 +13,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 public class GARequest implements Runnable{
+	private long mQueryTime=System.currentTimeMillis();
+	private static int mCacheBuster=0;
 	private Map<String,String> mParameter=new HashMap<String,String>();
 	public GARequest(){
 		
@@ -22,16 +24,16 @@ public class GARequest implements Runnable{
 	}
 	@Override
 	public void run() {
-		URIBuilder builder=new URIBuilder();
-		builder.setHost(GAnalytics.ENDPOINT_HOST);
-		builder.setPath(GAnalytics.ENDPOINT_PATH);
-		builder.setScheme(GAnalytics.ENDPOINT_SCHEME);
+		URIBuilder builder=new URIBuilder(GAnalytics.getMethod().getURI());
 		for(String a:mParameter.keySet()){
 			builder.setParameter(a, mParameter.get(a));
 		}
+		builder.setParameter(GAParameters.CACHE_BUSTER, ""+mCacheBuster);
+		builder.setParameter(GAParameters.QUEUE_TIME, ""+(System.currentTimeMillis()-mQueryTime));
+		mCacheBuster++;
 		System.out.println("===================START");
 		URI uri=null;
-		try {
+		try{
 			uri = builder.build();
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
@@ -39,6 +41,7 @@ public class GARequest implements Runnable{
 		}
 		
 		HttpGet post=new HttpGet(uri);
+		post.setHeader("User-Agent",GAnalytics.getSettings().userAgent);
 		System.out.println(uri.toString());
 		CloseableHttpClient client=HttpClients.createDefault();
 		CloseableHttpResponse resp=null;
