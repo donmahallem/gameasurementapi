@@ -70,8 +70,47 @@ public class GAQueryBuilder{
 	public static GARequest trackPageView(GATracker tracker,
 			String locationUrl, String title) {
 		GARequest req=getDefaultRequest(tracker);
+		req.addParameter(GAParameters.HIT_TYPE, "pageview");
 		req.addParameter(GAParameters.DOCUMENT_LOCATION_URL, locationUrl);
 		req.addParameter(GAParameters.DOCUMENT_TITLE, title);
+		return req;
+	}
+	/**
+	 * Tracks the User Timing
+	 * @param tracker Tracker
+	 * @param category Category (required)
+	 * @param timing Time in ms (required)
+	 * @param variableName Time Variable Name (optional can be null)
+	 * @param userTimingLabel Time Label (optional can be null)
+	 * @return
+	 */
+	public static GARequest trackUserTiming(GATracker tracker,
+			String category, long timing, String variableName,
+			String userTimingLabel) {
+		GARequest req=getDefaultRequest(tracker);
+		req.addParameter(GAParameters.HIT_TYPE,"timing");
+		req.addParameter(GAParameters.USER_TIMING_CATEGORY,category);
+		req.addParameter(GAParameters.USER_TIMING_TIME, ""+timing);
+		if(variableName!=null)
+			req.addParameter(GAParameters.USER_TIMING_VARIABLE_NAME, variableName);
+		if(userTimingLabel!=null)
+			req.addParameter(GAParameters.USER_TIMING_LABEL, userTimingLabel);
+		return req;
+	}
+	/**
+	 * Sends an empty Event-Type with the Session Start Command
+	 * @return
+	 */
+	public static GARequest startSession(GATracker tracker) {
+		GARequest req=getDefaultRequest(tracker);
+		req.addParameter(GAParameters.HIT_TYPE, "event");
+		req.addParameter(GAParameters.SESSION_CONTROL, "start");
+		return req;
+	}
+	public static GARequest stopSession(GATracker tracker) {
+		GARequest req=getDefaultRequest(tracker);
+		req.addParameter(GAParameters.HIT_TYPE, "event");
+		req.addParameter(GAParameters.SESSION_CONTROL, "stop");
 		return req;
 	}
 }

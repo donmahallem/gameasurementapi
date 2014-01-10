@@ -60,4 +60,14 @@ public class GATracker{
 	public void trackEvent(String category,String action,String label,int value){
 		GAnalytics.queue(GAQueryBuilder.trackEvent(this,category,action,label,value));
 	}
+	public void trackUserTiming(String category,long timing,String variableName,String userTimingLabel){
+		GAnalytics.queue(GAQueryBuilder.trackUserTiming(this,category,timing,variableName,userTimingLabel));
+	}
+	public void startSession(){
+		GAnalytics.queue(GAQueryBuilder.startSession(this));
+	}
+	public void endSession(){
+		GAnalytics.queue(GAQueryBuilder.stopSession(this));
+		
+	}
 }
