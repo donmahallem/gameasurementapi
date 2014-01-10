@@ -27,5 +27,23 @@ public final class GAParameters{
 			EVENT_CATEGORY = "ec",
 			EVENT_ACTION="ea",
 			EVENT_LABEL="el",
-			EVENT_VALUE="ev";
+			EVENT_VALUE="ev",
+			DOCUMENT_LOCATION_URL = "dl",
+			SOCIAL_NETWORK="sn",
+			SOCIAL_ACTION="sa",
+			SOCIAL_ACTION_TARGET="st",
+			USER_TIMING_CATEGORY="utc",
+			USER_TIMING_VARIABLE_NAME="utv",
+			USER_TIMING_TIME="utt",
+			USER_TIMING_LABEL="utl",
+			PAGE_LOAD_TIME="plt",
+			DNS_TIME="dns",
+			PAGE_DOWNLOAD_TIME="pdt",
+			REDIRECT_RESPONSE_TIME="rrt",
+			SERVER_RESPONSE_TIME="srt",
+			EXCEPTION_DESCRIPTION="exd",
+			IS_EXCEPTOIN_FATAL="exf",
+			CUSTOM_DIMENSION="cd",
+			CUSTOM_METRIC="cm";
+			
 }

@@ -16,8 +16,12 @@ public class GARequest implements Runnable{
 	private long mQueryTime=System.currentTimeMillis();
 	private static int mCacheBuster=0;
 	private Map<String,String> mParameter=new HashMap<String,String>();
+	private String mBrowser=GAnalytics.BROWSER+"/"+GAnalytics.VERSION;
 	public GARequest(){
 		
+	}
+	public void setBrowserID(String id){
+		mBrowser=id;
 	}
 	public void addParameter(String name,String value){
 		mParameter.put(name, value);
@@ -41,7 +45,7 @@ public class GARequest implements Runnable{
 		}
 		
 		HttpGet post=new HttpGet(uri);
-		post.setHeader("User-Agent",GAnalytics.getSettings().userAgent);
+		post.setHeader("User-Agent",mBrowser);
 		System.out.println(uri.toString());
 		CloseableHttpClient client=HttpClients.createDefault();
 		CloseableHttpResponse resp=null;

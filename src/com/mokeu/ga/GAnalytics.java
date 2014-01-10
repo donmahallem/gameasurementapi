@@ -7,30 +7,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class GAnalytics{
+	public static final String BROWSER = "github.gameasurementapi",VERSION="1";
 	private static String mDefaultTrackerId="";
 	private static String mClientId=UUID.randomUUID().toString();
 	private static Map<String,GATracker> mRequests=new HashMap<String,GATracker>();
 	private static ExecutorService mService = Executors.newFixedThreadPool(1);
 	private static GAMethod mMethod=GAMethod.GET_SSL;
 	private static boolean mAnonymizeIp=false;
-	private static Settings mSettings=new Settings();
-	static public class Settings{
-		public String userLanguage;
-		public String userAgent="github/gameasurementapi";
-		public String clientId=UUID.randomUUID().toString();
-		public String userEnabled=null;
-		public boolean javaEnabled=true;
-		public String screenResolution=null;
-		public boolean anonymizeIp=false;
-		
-		public Settings(){
-			
-		}
-	}
 	private GAnalytics(){
-	}
-	public static Settings getSettings(){
-		return mSettings;
 	}
 	public static void setDefaultTrackerId(String defaultID){
 		mDefaultTrackerId=defaultID;
